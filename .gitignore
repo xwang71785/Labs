@@ -9,6 +9,7 @@ wheels/
 .env
 *.toml
 *.lock
+*.txt
 
 # Virtual environments
 .venv
