@@ -11,6 +11,7 @@ notebooks/
 *.toml
 *.lock
 *.ipynb
+*.txt
 
 # Virtual environments
 .venv
