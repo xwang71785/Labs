@@ -28,6 +28,12 @@ if not BASE_URL or not API_KEY or not MODEL_NAME:
 client = AsyncOpenAI(base_url=BASE_URL, api_key=API_KEY)
 set_tracing_disabled(disabled=True)
 
+# Create a custom LLM that uses the custom client
+llm = OpenAIChatCompletionsModel(
+    model=MODEL_NAME,
+    openai_client=client,
+)
+
 # An alternate approach that would also work:
 # PROVIDER = OpenAIProvider(openai_client=client)
 # agent = Agent(..., model="some-custom-model")
@@ -36,16 +42,17 @@ set_tracing_disabled(disabled=True)
 
 @function_tool
 def get_weather(city: str):
+    """Returns the weather for a given city."""
     print(f"[debug] getting weather for {city}")
     return f"The weather in {city} is sunny."
 
 
 async def main():
-    # This agent will use the custom LLM provider
+    # Example 1: Using Agent API to call the custom LLM provider
     agent = Agent(
         name="Assistant",
         instructions="You only respond in haikus.",
-        model=OpenAIChatCompletionsModel(model=MODEL_NAME, openai_client=client),
+        model=llm,  # Use the custom LLM
         tools=[get_weather],
     )
 
@@ -62,6 +69,8 @@ async def main():
         ],
     )
     print(completion.choices[0].message.content)
+
+    # Example 3: Using the response API directly
 
 if __name__ == "__main__":
     asyncio.run(main())

@@ -22,5 +22,5 @@ def main():
     # Start the MCP server
     mcp.run(host="server", port=8000, debug=True)
 if __name__ == "__main__":
-    main() 
+    main()
 # This code sets up a simple MCP server with an addition tool and a dynamic greeting resource.

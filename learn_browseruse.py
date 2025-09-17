@@ -1,6 +1,7 @@
 """
 uv pip install browser-use
 uv run playwright install
+the ARK model is not capable of generate action plans with browser_use, so we use the ALI model
 """
 
 import os
